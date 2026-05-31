@@ -8,7 +8,7 @@ export default function HabitCard ({ habit, imageSize = 70 }) {
                 height = { imageSize }
                 alt = { habit.name }
             />
-            <p> { habit.completedStatus } </p>
+            <p> { habit.status } </p>
         </section>
    )
 }
