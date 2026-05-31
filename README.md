@@ -12,7 +12,7 @@
 
 ## RNCP5 Competencies Covered
 
-### CCP1 — Develop the front-end of a secure web application
+### CCP1 - Develop the front-end of a secure web application
 
 | CP | Competency | Implementation |
 |----|-----------|----------------|
@@ -21,7 +21,7 @@
 | CP3 | Build static user interfaces | React components, responsive design, RGAA accessibility compliance |
 | CP4 | Develop dynamic user interfaces | useState, useEffect, custom hooks, API calls, state management |
 
-### CCP2 — Develop the back-end of a secure web application
+### CCP2 - Develop the back-end of a secure web application
 
 | CP | Competency | Implementation |
 |----|-----------|----------------|
@@ -34,7 +34,7 @@
 
 ## Features
 
-### MVP — required for the exam
+### MVP - required for the exam
 
 - [ ] User authentication (register / login / logout)
 - [ ] Create, edit and delete habits
@@ -49,7 +49,7 @@
 - [ ] Fully responsive (desktop + mobile)
 - [ ] Deployed to production
 
-### Nice to have — if time allows
+### Nice to have - if time allows
 
 - [ ] Built-in timer for timed habits (reading, face massage, etc.)
 - [ ] Habit preset packs on first launch (Health, Sport, Personal Growth)
@@ -129,4 +129,4 @@ npm run dev
 
 ## Author
 
-Built by **Alexey Chernov** as part of the Web and Mobile Web Developer program — RNCP5 (Holberton School Paris, 2026)
+Built by **Alexey Chernov** as part of the Web and Mobile Web Developer program - RNCP5 (Holberton School Paris, 2026)
