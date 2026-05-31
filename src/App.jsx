@@ -1,7 +1,7 @@
 import HabitCard from './components/HabitCard' 
 import waterImage from './assets/waterImage.png'
-import gymImage from './assets/gymImage.png'
-import eatImage from './assets/eatImage.png'
+import gymImage from './assets/gymImage.jpg'
+import eatImage from './assets/eatImage.jpg'
 
 
 function App() {
