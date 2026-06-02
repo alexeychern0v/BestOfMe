@@ -21,24 +21,26 @@ function HabitsList() {
     id: 'id3'
   }]
 
+  function createNewHabit() {
+    console.log('button created')
+  }
+
   return (
     <>
+      <button onClick={createNewHabit}>Add habit</button>
       {initialHabits.map((initialHabit) => {
         return (
           <HabitCard
             name = {initialHabit.name}
             image = {initialHabit.image}
             status = {initialHabit.status}
-              key = {initialHabit.id}
+            key = {initialHabit.id}
           />
         )
       })}
     </>
   )
 }
-
-
-
 
 function App() {
   return (
