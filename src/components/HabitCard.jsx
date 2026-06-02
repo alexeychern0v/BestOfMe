@@ -1,14 +1,14 @@
-export default function HabitCard ({ habit, imageSize = 70 }) {
+export default function HabitCard ({ name, image, status, imageSize = 70 }) {
     return (
         <section className = "habitCard">
-            <h3> { habit.name } </h3>
+            <h3> { name } </h3>
             <img
-                src = { habit.image }
+                src = { image }
                 width = { imageSize }
                 height = { imageSize }
-                alt = { habit.name }
+                alt = { name }
             />
-            <p> { habit.status } </p>
+            <p> { status } </p>
         </section>
    )
 }

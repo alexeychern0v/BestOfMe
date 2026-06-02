@@ -3,33 +3,37 @@ import waterImage from './assets/waterImage.png'
 import gymImage from './assets/gymImage.jpg'
 import eatImage from './assets/eatImage.jpg'
 
+const initialHabits = [{
+  name: 'Drink 2l of water',
+  image: waterImage,
+  status: 'Done :)'
+}, {
+  name: 'Go to the gym',
+  image: gymImage,
+  status: 'Not done yet :('
+}, {
+  name: 'Eat 3000 calories',
+  image: eatImage,
+  status: 'Not done yet :('
+}]
+
+const initialHabitsComponents = initialHabits.map((initialHabit) => {
+  return (
+    <HabitCard
+      name = {initialHabit.name}
+      image = {initialHabit.image}
+      status = {initialHabit.status}
+    />
+  )
+})
 
 function App() {
-  return (
-    <div>
-      <HabitCard
-        habit = {{
-          name: 'Drink 2l of water',
-          image: waterImage,
-          status: 'Done :)'
-        }}
-      />
-      <HabitCard
-        habit = {{
-          name: 'Go to the gym',
-          image: gymImage,
-          status: 'Not done yet :('
-        }}
-      />
-      <HabitCard
-        habit = {{
-          name: 'Eat 3000 calories',
-          image: eatImage,
-          status: 'Not done yet :('
-        }}
-      />
-    </div>
-  )
+    return (
+      <>
+        {initialHabitsComponents}
+      </>
+    )
+
 }
 
 export default App
