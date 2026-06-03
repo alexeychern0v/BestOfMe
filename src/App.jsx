@@ -22,13 +22,17 @@ const initialHabits = [{
     id: crypto.randomUUID()
   }]
 
-function HabitsList() {
-  const [habits, setHabits] = useState(initialHabits)
+function NewHabitInput ({ habits, setHabits }) {
+  const [habitInput, setHabitInput] = useState('')
 
-  function createNewHabit() {
+  function saveHabitInput (event) {
+    setHabitInput(event.target.value)
+  }
+
+  function displayNewHabit() {
     setHabits([
       ...habits, {
-        name: 'Clean skin',
+        name: habitInput,
         status: 'Not done yet :(',
         id: crypto.randomUUID()
       }
@@ -37,7 +41,18 @@ function HabitsList() {
 
   return (
     <>
-      <button onClick={createNewHabit}> Add habit </button>
+      <input
+        placeholder='Enter new habit'
+        onChange={saveHabitInput}
+      />
+      <button onClick={displayNewHabit}>Add habit</button>
+    </>
+  )
+}
+
+function HabitsList({ habits }) {
+  return (
+    <>
       {habits.map((habit) => {
         return (
           <HabitCard
@@ -53,9 +68,16 @@ function HabitsList() {
 }
 
 function App() {
+  const [habits, setHabits] = useState(initialHabits)
   return (
     <>
-      <HabitsList />
+      <NewHabitInput
+        habits = { habits }
+        setHabits = { setHabits }
+      />
+      <HabitsList
+        habits = { habits }
+      />
     </>
   )  
 }
