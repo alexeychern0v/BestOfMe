@@ -37,15 +37,18 @@ function NewHabitInput ({ habits, setHabits }) {
         id: crypto.randomUUID()
       }
     ])
+
+    setHabitInput('')
   }
 
   return (
     <>
       <input
-        placeholder='Enter new habit'
-        onChange={saveHabitInput}
+        placeholder = 'Enter new habit'
+        onChange = {saveHabitInput}
+        value = {habitInput}
       />
-      <button onClick={displayNewHabit}>Add habit</button>
+      <button onClick = {displayNewHabit}>Add habit</button>
     </>
   )
 }
