@@ -30,6 +30,10 @@ function NewHabitInput ({ habits, setHabits }) {
   }
 
   function displayNewHabit() {
+    if (!inputHabit.trim()) {
+      console.log("Error: empty habit input!")
+      return;
+    }
     setHabits([
       ...habits, {
         name: inputHabit,
