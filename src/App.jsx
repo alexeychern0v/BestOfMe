@@ -23,22 +23,22 @@ const initialHabits = [{
   }]
 
 function NewHabitInput ({ habits, setHabits }) {
-  const [habitInput, setHabitInput] = useState('')
+  const [inputHabit, setInputHabit] = useState('')
 
   function saveHabitInput (event) {
-    setHabitInput(event.target.value)
+    setInputHabit(event.target.value)
   }
 
   function displayNewHabit() {
     setHabits([
       ...habits, {
-        name: habitInput,
+        name: inputHabit,
         status: 'Not done yet :(',
         id: crypto.randomUUID()
       }
     ])
 
-    setHabitInput('')
+    setInputHabit('')
   }
 
   return (
@@ -46,7 +46,7 @@ function NewHabitInput ({ habits, setHabits }) {
       <input
         placeholder = 'Enter new habit'
         onChange = {saveHabitInput}
-        value = {habitInput}
+        value = {inputHabit}
       />
       <button onClick = {displayNewHabit}>Add habit</button>
     </>
