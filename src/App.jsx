@@ -1,14 +1,14 @@
-import waterImage from './assets/waterImage.png'
-import gymImage from './assets/gymImage.jpg'
-import eatImage from './assets/eatImage.jpg'
-
+import waterImage from './assets/waterImage.png';
+import gymImage from './assets/gymImage.jpg';
+import eatImage from './assets/eatImage.jpg';
 
 import { useState } from 'react'
 import { Routes, Route } from 'react-router';
-import Dashboard from './pages/Dashboard'
-import AddHabit from './pages/AddHabit'
-import Profile from './pages/Profile'
-import Onboarding from './pages/Onboarding'
+import Dashboard from './pages/Dashboard';
+import AddHabit from './pages/AddHabit';
+import Profile from './pages/Profile';
+import Onboarding from './pages/Onboarding';
+import HabitDetail from './pages/HabitDetail';
 
 const initialHabits = [{
     name: 'Drink 2l of water',
@@ -47,6 +47,7 @@ function App() {
         <Route path="/addHabit" element={<AddHabit />}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/onboarding" element={<Onboarding />}/>
+        <Route path="/habit/:id" element={<HabitDetail />}/>
       </Routes>
   )  
 }
