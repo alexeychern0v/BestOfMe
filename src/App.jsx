@@ -1,9 +1,14 @@
-import HabitCard from './components/HabitCard' 
 import waterImage from './assets/waterImage.png'
 import gymImage from './assets/gymImage.jpg'
 import eatImage from './assets/eatImage.jpg'
-import { useState } from 'react'
 
+
+import { useState } from 'react'
+import { Routes, Route } from 'react-router';
+import Dashboard from './pages/Dashboard'
+import AddHabit from './pages/AddHabit'
+import Profile from './pages/Profile'
+import Onboarding from './pages/Onboarding'
 
 const initialHabits = [{
     name: 'Drink 2l of water',
@@ -22,61 +27,6 @@ const initialHabits = [{
     id: crypto.randomUUID()
   }]
 
-function NewHabitInput ({ habits, setHabits }) {
-  const [inputHabit, setInputHabit] = useState('')
-
-  function saveHabitInput (event) {
-    setInputHabit(event.target.value)
-  }
-
-  function displayNewHabit() {
-    if (!inputHabit.trim()) {
-      console.log("Error: empty habit input!")
-      return;
-    }
-    setHabits([
-      ...habits, {
-        name: inputHabit,
-        status: 'Not done yet :(',
-        id: crypto.randomUUID()
-      }
-    ])
-
-    setInputHabit('')
-  }
-
-  return (
-    <>
-      <input
-        placeholder = 'Enter new habit'
-        onChange = { saveHabitInput }
-        value = { inputHabit }
-      />
-      <button onClick = { displayNewHabit }>Add habit</button>
-    </>
-  )
-}
-
-
-function HabitsList({ habits, onDelete, onToggle }) {
-  return (
-    <>
-      {habits.map((habit) => {
-        return (
-          <HabitCard
-            name = { habit.name }
-            image = { habit.image }
-            status = { habit.status }
-            id = { habit.id }
-            key = { habit.id }
-            onDelete = { onDelete }
-            onToggle = { onToggle }
-          />
-        )
-      })}
-    </>
-  )
-}
 
 function App() {
   const [habits, setHabits] = useState(initialHabits)
@@ -92,17 +42,12 @@ function App() {
   }
 
   return (
-    <>
-      <NewHabitInput
-        habits = { habits }
-        setHabits = { setHabits }
-      />
-      <HabitsList
-        habits = { habits }
-        onDelete = { deleteHabit }
-        onToggle = { toggleHabit }
-      />
-    </>
+      <Routes>
+        <Route index element={<Dashboard habits = { habits } setHabits = { setHabits } onDelete = { deleteHabit } onToggle = { toggleHabit }/>}/>
+        <Route path="/addHabit" element={<AddHabit />}/>
+        <Route path="/profile" element={<Profile />}/>
+        <Route path="/onboarding" element={<Onboarding />}/>
+      </Routes>
   )  
 }
 
