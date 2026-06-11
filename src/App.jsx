@@ -58,7 +58,7 @@ function NewHabitInput ({ habits, setHabits }) {
 }
 
 
-function HabitsList({ habits, onDelete }) {
+function HabitsList({ habits, onDelete, onToggle }) {
   return (
     <>
       {habits.map((habit) => {
@@ -67,8 +67,10 @@ function HabitsList({ habits, onDelete }) {
             name = { habit.name }
             image = { habit.image }
             status = { habit.status }
+            id = { habit.id }
             key = { habit.id }
             onDelete = { onDelete }
+            onToggle = { onToggle }
           />
         )
       })}
@@ -78,9 +80,17 @@ function HabitsList({ habits, onDelete }) {
 
 function App() {
   const [habits, setHabits] = useState(initialHabits)
+  
   function deleteHabit(id) {
-    setHabits(habits.filter((habit) => habit.id !== id))
+    setHabits(habits.filter((habit) => habit.id !== id)) // !== remain habit if the ID is not = ID user wants to delete 
   }
+
+  function toggleHabit(id) {
+    setHabits(habits.map((habit) => habit.id === id // checks if the toggle habit id matches
+      ? {...habit, status: habit.status === 'Not done yet :(' ? 'Done :)' : 'Not done yet :('} // if TRUE copy all habit and change only status
+      : habit)) // if FALSE leave as it was
+  }
+
   return (
     <>
       <NewHabitInput
@@ -90,6 +100,7 @@ function App() {
       <HabitsList
         habits = { habits }
         onDelete = { deleteHabit }
+        onToggle = { toggleHabit }
       />
     </>
   )  
