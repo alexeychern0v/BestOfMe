@@ -49,24 +49,26 @@ function NewHabitInput ({ habits, setHabits }) {
     <>
       <input
         placeholder = 'Enter new habit'
-        onChange = {saveHabitInput}
-        value = {inputHabit}
+        onChange = { saveHabitInput }
+        value = { inputHabit }
       />
-      <button onClick = {displayNewHabit}>Add habit</button>
+      <button onClick = { displayNewHabit }>Add habit</button>
     </>
   )
 }
 
-function HabitsList({ habits }) {
+
+function HabitsList({ habits, onDelete }) {
   return (
     <>
       {habits.map((habit) => {
         return (
           <HabitCard
-            name = {habit.name}
-            image = {habit.image}
-            status = {habit.status}
-            key = {habit.id}
+            name = { habit.name }
+            image = { habit.image }
+            status = { habit.status }
+            key = { habit.id }
+            onDelete = { onDelete }
           />
         )
       })}
@@ -76,6 +78,9 @@ function HabitsList({ habits }) {
 
 function App() {
   const [habits, setHabits] = useState(initialHabits)
+  function deleteHabit(id) {
+    setHabits(habits.filter((habit) => habit.id !== id))
+  }
   return (
     <>
       <NewHabitInput
@@ -84,6 +89,7 @@ function App() {
       />
       <HabitsList
         habits = { habits }
+        onDelete = { deleteHabit }
       />
     </>
   )  
