@@ -1,10 +1,10 @@
-import NewHabitInput from '../components/NewHabitInput'
+import NewHabitForm from '../components/NewHabitForm'
 import HabitsList from '../components/HabitsList'
 
 export default function Dashboard({ habits, setHabits, onDelete, onToggle }) {
   return (
     <>
-      <NewHabitInput habits={ habits } setHabits={ setHabits } />
+      <NewHabitForm habits={ habits } setHabits={ setHabits } />
       <HabitsList habits={ habits } onDelete={ onDelete } onToggle={ onToggle } />
     </>
   )
