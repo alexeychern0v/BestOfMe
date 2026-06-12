@@ -1,6 +1,5 @@
 import HabitCard from './HabitCard'
 
-
 export default function HabitsList({ habits, onDelete, onToggle }) {
   return (
     <>
@@ -8,8 +7,9 @@ export default function HabitsList({ habits, onDelete, onToggle }) {
         return (
           <HabitCard
             name = { habit.name }
-            image = { habit.image }
             status = { habit.status }
+            category= { habit.category }
+            difficulty= { habit.difficulty }
             id = { habit.id }
             key = { habit.id }
             onDelete = { onDelete }
