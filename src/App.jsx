@@ -1,7 +1,3 @@
-import waterImage from './assets/waterImage.png';
-import gymImage from './assets/gymImage.jpg';
-import eatImage from './assets/eatImage.jpg';
-
 import { useState } from 'react'
 import { Routes, Route } from 'react-router';
 import Dashboard from './pages/Dashboard';
@@ -12,17 +8,14 @@ import HabitDetail from './pages/HabitDetail';
 
 const initialHabits = [{
     name: 'Drink 2l of water',
-    image: waterImage,
     status: 'Done :)',
     id: crypto.randomUUID()
   }, {
     name: 'Go to the gym',
-    image: gymImage,
     status: 'Not done yet :(',
     id: crypto.randomUUID()
   }, {
     name: 'Eat 3000 calories',
-    image: eatImage,
     status: 'Not done yet :(',
     id: crypto.randomUUID()
   }]
