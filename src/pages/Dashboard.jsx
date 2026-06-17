@@ -3,11 +3,13 @@ import { useState } from 'react'
 
 import HabitsList from '../components/HabitsList'
 
-const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const daysWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const today = daysWeek[new Date().getDay()]
+
 
 export default function Dashboard({ habits, onDelete, onToggle, setEditHabit }) {
   const navigate = useNavigate()
-  const [selectedDay, setSelectedDay] = useState('Daily')
+  const [selectedDay, setSelectedDay] = useState(today)
   const dayFilteredHabits = habits.filter(habit => {
     if (habit.day === 'Daily') return true;
     return habit.day === selectedDay  
@@ -15,7 +17,7 @@ export default function Dashboard({ habits, onDelete, onToggle, setEditHabit }) 
   return (
     <div className='dashboard'>
        <div className='week-strip'>
-        {days.map(day => (
+        {daysWeek.map(day => (
           <button
             key={day}
             onClick={() => setSelectedDay(day)}
