@@ -12,22 +12,21 @@ export default function Dashboard({ habits, onDelete, onToggle, setEditHabit }) 
     if (habit.day === 'Daily') return true;
     return habit.day === selectedDay  
   })
-  console.log(habits)
   return (
-    <>
-       <div>
+    <div className='dashboard'>
+       <div className='week-strip'>
         {days.map(day => (
           <button
             key={day}
             onClick={() => setSelectedDay(day)}
-            style={{ fontWeight: selectedDay === day ? 'bold' : 'normal' }}
+            className={`week-day ${selectedDay === day ? 'week-day--active' : ''}`}
           >
-            {day}
+            {day.slice(0, 2)}
           </button>
         ))}
       </div>
-      <button onClick={() => navigate('/addHabit')}>Add new habit</button>
+      <button className="btn-add" onClick={() => navigate('/addHabit')}>+ Add new habit</button>
       <HabitsList habits={ dayFilteredHabits } onDelete={ onDelete } onToggle={ onToggle } onEdit = { setEditHabit } />
-    </>
+    </div>
   )
 }

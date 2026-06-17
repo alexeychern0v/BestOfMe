@@ -16,7 +16,6 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
 
   function handleHabitChange (event) {
     const { name, value } = event.target
-    console.log(name, value)
     setHabitForm({...habitForm, [name]: value})
   }
 
@@ -41,37 +40,72 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
   }
 
   return (
-    <>
-      <input
-        name = 'name'
-        placeholder = 'Enter new habit'
-        value = { habitForm.name }
-        onChange = { handleHabitChange }
-      />
-      <select name= 'category' value = {habitForm.category} onChange={handleHabitChange}>
-        <option value="">Choose category</option>
-        <option value="health">Health</option>
-        <option value="work">Work</option>
-        <option value="sport">Sport</option>
-      </select>
-      <select name="day" value={habitForm.day} onChange={handleHabitChange}>
-        <option value="">Choose frequency</option>
-        <option value="Daily">Daily</option>
-        <option value="Monday">Monday</option>
-        <option value="Tuesday">Tuesday</option>
-        <option value="Wednesday">Wednesday</option>
-        <option value="Thursday">Thursday</option>
-        <option value="Friday">Friday</option>
-        <option value="Saturday">Saturday</option>
-        <option value="Sunday">Sunday</option>
-      </select>
-      <select name = 'difficulty' value={habitForm.difficulty} onChange={handleHabitChange}>
-        <option value={1}>1 - easy</option>
-        <option value={2}>2 - medium</option>
-        <option value={3}>3 - difficult</option>
-      </select>
+    <div className = "form-page">
+      <h2>{editHabit ? 'Edit habit' : 'New habit'}</h2>
+      
+      <div className = "form-group">
+        <label className = "form-label">Name</label>
+        <input
+          className = "form-input" 
+          name = "name"
+          placeholder = 'Enter new habit'
+          value = { habitForm.name }
+          onChange = { handleHabitChange }
+        />
+      </div>
 
-      <button onClick = { handleHabitSubmit }>Add habit</button>
-    </>
+      <div className = "form-group">
+        <label className = "form-label">Category</label>
+        <select
+          className = "form-select"
+          name = "category"
+          value = {habitForm.category}
+          onChange={handleHabitChange}
+        >
+          <option value="">Choose category</option>
+          <option value="Health">Health</option>
+          <option value="Work">Work</option>
+          <option value="Sport">Sport</option>
+        </select>
+      </div>
+      
+      <div className="form-group">
+        <label className="form-label">Difficulty</label>
+        <select
+          className="form-select"
+          name="difficulty"
+          value={habitForm.difficulty} 
+          onChange={handleHabitChange}
+        >
+          <option value={1}>1 - easy</option>
+          <option value={2}>2 - medium</option>
+          <option value={3}>3 - difficult</option>
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label className = "form-label">Frequency</label>
+        <select
+          className="form-select"
+          name="day"
+          value={habitForm.day} 
+          onChange={handleHabitChange}
+        >
+          <option value="">Choose frequency</option>
+          <option value="Daily">Daily</option>
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
+        </select>
+
+        <button className="btn-submit" onClick={handleHabitSubmit}>
+          {editHabit ? 'Save changes' : 'Add habit'}
+        </button>
+      </div>
+    </div>
   )
 }

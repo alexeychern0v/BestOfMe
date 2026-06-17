@@ -2,7 +2,7 @@ import HabitCard from './HabitCard'
 
 export default function HabitsList({ habits, onDelete, onToggle, onEdit }) {
   return (
-    <>
+    <div className="habits-list">
       {habits.map((habit) => {
         return (
           <HabitCard
@@ -18,6 +18,6 @@ export default function HabitsList({ habits, onDelete, onToggle, onEdit }) {
           />
         )
       })}
-    </>
+    </div>
   )
 }
