@@ -7,8 +7,12 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 
 export default function Dashboard({ habits, onDelete, onToggle, setEditHabit }) {
   const navigate = useNavigate()
-  const [selectedDay, setSelectedDay] = useState('Monday')
-  const dayFilteredHabits = habits.filter(habit => habit.day === selectedDay)
+  const [selectedDay, setSelectedDay] = useState('Daily')
+  const dayFilteredHabits = habits.filter(habit => {
+    if (habit.day === 'Daily') return true;
+    return habit.day === selectedDay  
+  })
+  console.log(habits)
   return (
     <>
        <div>

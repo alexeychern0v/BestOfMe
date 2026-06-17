@@ -16,12 +16,13 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
 
   function handleHabitChange (event) {
     const { name, value } = event.target
+    console.log(name, value)
     setHabitForm({...habitForm, [name]: value})
   }
 
 
   function handleHabitSubmit() {
-    if (!habitForm.name.trim() || !habitForm.category) {
+    if (!habitForm.name.trim() || !habitForm.category || !habitForm.day) {
       console.log("Error: fill in all fields!")
       return;
     }
@@ -54,6 +55,8 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
         <option value="sport">Sport</option>
       </select>
       <select name="day" value={habitForm.day} onChange={handleHabitChange}>
+        <option value="">Choose frequency</option>
+        <option value="Daily">Daily</option>
         <option value="Monday">Monday</option>
         <option value="Tuesday">Tuesday</option>
         <option value="Wednesday">Wednesday</option>
