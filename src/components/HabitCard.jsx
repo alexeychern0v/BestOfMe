@@ -5,7 +5,7 @@ export default function HabitCard ({ name, status, category, difficulty, id, onD
 
     function handleHabitEdit() {
         onEdit({ name, status, category, difficulty, id })
-        navigate('//addHabit')
+        navigate('/addHabit')
     }
 
     return (

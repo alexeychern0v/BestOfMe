@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 
 export default function NewHabitForm ({ habits, setHabits, editHabit }) {
+  const navigate = useNavigate()
+  
   const [habitForm, setHabitForm] = useState(
     editHabit || { name: '', category: '', difficulty: 1,}
   )
@@ -33,6 +36,7 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
     }
     
     setHabitForm({name: '', category: '', difficulty: 1})
+    navigate('/')
   }
 
   return (
