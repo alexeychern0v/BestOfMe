@@ -16,19 +16,23 @@ export default function Dashboard({ habits, onDelete, onToggle, setEditHabit }) 
   })
   return (
     <div className='dashboard'>
-       <div className='week-strip'>
-        {daysWeek.map(day => (
-          <button
-            key={day}
-            onClick={() => setSelectedDay(day)}
-            className={`week-day ${selectedDay === day ? 'week-day--active' : ''}`}
-          >
-            {day.slice(0, 2)}
-          </button>
-        ))}
+        <div className='dashboard__header'>
+          <h1 className='dashboard__title'>Best of Me</h1>
+          <div className='dashboard__avatar'>👤</div>
+        </div>
+        <div className='week-strip'>
+          {daysWeek.map(day => (
+            <button
+              key={day}
+              onClick={() => setSelectedDay(day)}
+              className={`week-day ${selectedDay === day ? 'week-day--active' : ''}`}
+            >
+              {day.slice(0, 2)}
+            </button>
+          ))}
+        </div>
+        <button className="btn-add" onClick={() => navigate('/addHabit')}>+ Add new habit</button>
+        <HabitsList habits={ dayFilteredHabits } onDelete={ onDelete } onToggle={ onToggle } onEdit = { setEditHabit } />
       </div>
-      <button className="btn-add" onClick={() => navigate('/addHabit')}>+ Add new habit</button>
-      <HabitsList habits={ dayFilteredHabits } onDelete={ onDelete } onToggle={ onToggle } onEdit = { setEditHabit } />
-    </div>
   )
 }
