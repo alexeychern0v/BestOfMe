@@ -18,7 +18,7 @@ export default function Dashboard({ habits, onDelete, onToggle, setEditHabit }) 
     <div className='dashboard'>
         <div className='dashboard__header'>
           <h1 className='dashboard__title'>Best of Me</h1>
-          <div className='dashboard__avatar'>👤</div>
+          <div className='dashboard__avatar' onClick={() => navigate('/profile')}>👤</div>
         </div>
         <div className='week-strip'>
           {daysWeek.map(day => (
