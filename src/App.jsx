@@ -29,6 +29,7 @@ const initialHabits = [{
 
 function App() {
   const [habits, setHabits] = useState(initialHabits)
+  const [editHabit, setEditHabit] = useState(null)
   
   function deleteHabit(id) {
     setHabits(habits.filter((habit) => habit.id !== id)) // !== remain habit if the ID is not = ID user wants to delete 
@@ -42,7 +43,7 @@ function App() {
 
   return (
       <Routes>
-        <Route index element={<Dashboard habits = { habits } setHabits = { setHabits } onDelete = { deleteHabit } onToggle = { toggleHabit }/>}/>
+        <Route index element={<Dashboard habits = { habits } setHabits = { setHabits } onDelete = { deleteHabit } onToggle = { toggleHabit } editHabit = { editHabit } setEditHabit = {setEditHabit} />}/>
         <Route path="/addHabit" element={<AddHabit />}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/onboarding" element={<Onboarding />}/>

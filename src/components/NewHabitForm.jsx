@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-export default function NewHabitForm ({ habits, setHabits }) {
-  const [habitForm, setHabitForm] = useState({
-    name: '',
-    category: '',
-    difficulty: 1,
-  })
+export default function NewHabitForm ({ habits, setHabits, editHabit }) {
+  const [habitForm, setHabitForm] = useState(
+    editHabit || { name: '', category: '', difficulty: 1,}
+  )
+
+  useEffect(() => {
+    if (editHabit) {
+      setHabitForm(editHabit)
+    }
+  }, [editHabit])
 
   function handleHabitChange (event) {
     const { name, value } = event.target
@@ -18,13 +22,16 @@ export default function NewHabitForm ({ habits, setHabits }) {
       console.log("Error: fill in all fields!")
       return;
     }
-    setHabits([
-      ...habits, { ...habitForm,
+    if (editHabit) {
+      setHabits(habits.map(h => h.id === editHabit.id ? { ...habitForm, id: h.id } : h))
+    } else {
+      setHabits([
+        ...habits, { ...habitForm,
         status: 'Not done yet :(',
         id: crypto.randomUUID()
-      }
-    ])
-
+      } ])
+    }
+    
     setHabitForm({name: '', category: '', difficulty: 1})
   }
 

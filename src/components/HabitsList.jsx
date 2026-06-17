@@ -1,6 +1,6 @@
 import HabitCard from './HabitCard'
 
-export default function HabitsList({ habits, onDelete, onToggle }) {
+export default function HabitsList({ habits, onDelete, onToggle, onEdit }) {
   return (
     <>
       {habits.map((habit) => {
@@ -12,8 +12,9 @@ export default function HabitsList({ habits, onDelete, onToggle }) {
             difficulty= { habit.difficulty }
             id = { habit.id }
             key = { habit.id }
-            onDelete = { onDelete }
             onToggle = { onToggle }
+            onDelete = { onDelete }
+            onEdit = { onEdit }
           />
         )
       })}
