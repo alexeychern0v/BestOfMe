@@ -43,8 +43,8 @@ function App() {
 
   return (
       <Routes>
-        <Route index element={<Dashboard habits = { habits } setHabits = { setHabits } onDelete = { deleteHabit } onToggle = { toggleHabit } editHabit = { editHabit } setEditHabit = {setEditHabit} />}/>
-        <Route path="/addHabit" element={<AddHabit />}/>
+        <Route index element={<Dashboard habits = { habits } onDelete = { deleteHabit } onToggle = { toggleHabit } setEditHabit = {setEditHabit} />}/>
+        <Route path="/addHabit" element={<AddHabit habits = { habits } setHabits = { setHabits } editHabit = { editHabit }/>}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/onboarding" element={<Onboarding />}/>
         <Route path="/habit/:id" element={<HabitDetail />}/>

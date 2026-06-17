@@ -1,3 +1,9 @@
-export default function AddHabit() {
-  return <h1>AddHabit</h1>
+import NewHabitForm from '../components/NewHabitForm'
+
+export default function AddHabit( {habits, setHabits, editHabit }) {
+  return (
+    <>
+      <NewHabitForm habits={ habits } setHabits={ setHabits } editHabit = { editHabit }/>  
+    </>
+  )
 }
