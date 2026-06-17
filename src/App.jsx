@@ -11,18 +11,21 @@ const initialHabits = [{
     category: 'Health',
     difficulty: '1',
     status: 'Done :)',
+    day: 'Monday',
     id: crypto.randomUUID()
   }, {
     name: 'Go to the gym',
     category: 'Health',
     difficulty: 3,
     status: 'Not done yet :(',
+    day: 'Tuesday',
     id: crypto.randomUUID()
   }, {
     name: 'Eat 3000 calories',
     category: 'Health',
     difficulty: 2,
     status: 'Not done yet :(',
+    day: 'Wednesday',
     id: crypto.randomUUID()
   }]
 
