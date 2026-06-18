@@ -77,9 +77,9 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
           value={habitForm.difficulty} 
           onChange={handleHabitChange}
         >
-          <option value={1}>1 - easy</option>
-          <option value={2}>2 - medium</option>
-          <option value={3}>3 - difficult</option>
+          <option value={1}>1⭐ - easy</option>
+          <option value={2}>2⭐⭐ - medium</option>
+          <option value={3}>3⭐⭐⭐ - difficult</option>
         </select>
       </div>
 
