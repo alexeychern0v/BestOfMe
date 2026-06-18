@@ -26,7 +26,7 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
       return;
     }
     if (editHabit) {
-      setHabits(habits.map(h => h.id === editHabit.id ? { ...habitForm, id: h.id } : h))
+      setHabits(habits.map(habit=> habit.id === editHabit.id ? { ...habitForm, id: habit.id } : habit))
     } else {
       setHabits([
         ...habits, { ...habitForm,
