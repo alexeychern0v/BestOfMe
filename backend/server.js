@@ -3,15 +3,17 @@ import cors from 'cors';
 import 'dotenv/config';
 import pool from './db.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { verifyToken } from './middleware/auth.js';
 
 
 const app = express();
 
-app.use(cors());
 // Enable CORS for all routes: without this, browser blocks requests from React app
+app.use(cors());
 
-app.use(express.json());
 // Parse incoming JSON request bodies into req.body (needed for POST/PUT requests)
+app.use(express.json());
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
@@ -50,8 +52,54 @@ app.post('/api/register', async(req, res) => {
 
 });
 
+// POST /api/login - authenticates user and returns a JWT token
+app.post('/api/login', async(req, res) => {
+    const { email, password } = req.body
+    
+    try {
+        // 1: find user by email
+        const result = await pool.query(
+            'SELECT id, email, password_hash FROM users WHERE email = $1',
+            [email]
+        );
+
+        if (result.rows.length === 0) {
+            // No user found - don't reveal whether it's the email or password that's wrong
+            return res.status(401).json({ error: 'Invalid email or password' })
+        };
+
+        const user = result.rows[0];
+        // 2: compare plain password with stored hash
+        const passwordsMatch = await bcrypt.compare(password, user.password_hash);
+
+        if (!passwordsMatch) {
+            return res.status(401).json({ error: 'Invalid email or password' })
+        };
+
+        // 3: password correct - generate JWT token
+        const token = jwt.sign(
+            { userId: user.id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: '7d' }
+        );
+
+        res.json({ token });
+    } catch(err) {
+        console.error(err)
+        res.status(500).json({ error: 'Server error'})
+    }
+});
+
+// Test middleware protection
+app.get('/api/test', verifyToken, (req, res) => {
+    res.json({
+        message: 'Access granted!',
+        userId: req.userId
+    });
+});
+
+// Get the port from .env, or default to 5001 if not set
 const PORT = process.env.PORT || 5001;
-// Get the port from .env, or default to 5000 if not set
 
 // Start the server, listening for incoming requests on this port
 app.listen(PORT, () => {
