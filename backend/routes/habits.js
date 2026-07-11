@@ -27,8 +27,8 @@ router.post('/', verifyToken, async(req, res) => {
 
     try {
         const result = await pool.query(
-            'INSERT INTO habits (user_id, name, category, difficulty) VALUES ($1, $2, $3)',
-            [req.usedID, name, category, difficulty]
+            'INSERT INTO habits (user_id, name, category, difficulty) VALUES ($1, $2, $3, $4) RETURNING *',
+            [req.usedId, name, category, difficulty]
         );
         res.status(201).json(result.rows[0]);
     } catch(err) {
@@ -37,7 +37,7 @@ router.post('/', verifyToken, async(req, res) => {
 });
 
 // PUT /api/habits/:id — edit user's habit with specific ID
-router.put('/:id', verifyToken, async(res, req) => {
+router.put('/:id', verifyToken, async(req, res) => {
     const { id } = req.params;
     const { name, category, difficulty } = req.body;
 
@@ -47,7 +47,7 @@ router.put('/:id', verifyToken, async(res, req) => {
             [id, req.userId]
         );
         if (check.rows.length === 0) {
-            res.status(404).json({ error: 'Habit not found' })
+            return res.status(404).json({ error: 'Habit not found' })
         }
 
         const result = await pool.query(
@@ -71,7 +71,7 @@ router.delete('/:id', verifyToken, async(req, res) => {
         );
 
         if (result.rows.length === 0) {
-            res.status(404).json({ error: 'Habit not found' })
+            return  res.status(404).json({ error: 'Habit not found' })
         }
         res.json({ message: 'Habit deleted' });
     } catch(err) {
