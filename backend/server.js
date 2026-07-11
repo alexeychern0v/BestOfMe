@@ -5,6 +5,7 @@ import pool from './db.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { verifyToken } from './middleware/auth.js';
+import habitsRouter from './routes/habits.js';
 
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(cors());
 
 // Parse incoming JSON request bodies into req.body (needed for POST/PUT requests)
 app.use(express.json());
+
+app.use('/api/habits', habitsRouter);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
