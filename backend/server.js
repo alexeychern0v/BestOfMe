@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { verifyToken } from './middleware/auth.js';
 import habitsRouter from './routes/habits.js';
+import habitLogsRouter from './routes/habitLogs.js';
 
 
 const app = express();
@@ -17,6 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/habits', habitsRouter);
+app.use('/api/habits', habitLogsRouter);
+
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });

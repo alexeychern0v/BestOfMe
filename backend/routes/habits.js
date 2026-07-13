@@ -28,10 +28,11 @@ router.post('/', verifyToken, async(req, res) => {
     try {
         const result = await pool.query(
             'INSERT INTO habits (user_id, name, category, difficulty) VALUES ($1, $2, $3, $4) RETURNING *',
-            [req.usedId, name, category, difficulty]
+            [req.userId, name, category, difficulty]
         );
         res.status(201).json(result.rows[0]);
     } catch(err) {
+        console.error(err);
         res.status(500).json({ error: 'Server error' });
     }
 });
