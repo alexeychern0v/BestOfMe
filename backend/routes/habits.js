@@ -13,6 +13,7 @@ router.get('/', verifyToken, async(req, res) =>{
         );
         res.json(result.rows);
     } catch(err) {
+        console.log(err)
         res.status(500).json({ error: 'Server error' })
     }
 });
@@ -57,6 +58,7 @@ router.put('/:id', verifyToken, async(req, res) => {
         );
         res.json(result.rows[0]);   
     } catch(err) {
+        console.log(err)
         res.status(500).json({ error: 'Server error' });
     }
 });
@@ -76,6 +78,7 @@ router.delete('/:id', verifyToken, async(req, res) => {
         }
         res.json({ message: 'Habit deleted' });
     } catch(err) {
+        console.log(err)
         res.status(500).json({ error: 'Server error' })
     }
 });

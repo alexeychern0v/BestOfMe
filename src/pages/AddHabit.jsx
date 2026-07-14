@@ -1,9 +1,5 @@
 import NewHabitForm from '../components/NewHabitForm'
 
-export default function AddHabit( {habits, setHabits, editHabit }) {
-  return (
-    <>
-      <NewHabitForm habits={ habits } setHabits={ setHabits } editHabit = { editHabit }/>  
-    </>
-  )
+export default function AddHabit({ onAdd, onUpdate, editHabit }) {
+  return <NewHabitForm onAdd={onAdd} onUpdate={onUpdate} editHabit={editHabit} />
 }

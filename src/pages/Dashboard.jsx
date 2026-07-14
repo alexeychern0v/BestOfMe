@@ -6,14 +6,16 @@ import HabitsList from '../components/HabitsList'
 const daysWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const today = daysWeek[new Date().getDay()]
 
-
 export default function Dashboard({ habits, onDelete, onToggle, setEditHabit }) {
   const navigate = useNavigate()
   const [selectedDay, setSelectedDay] = useState(today)
-  const dayFilteredHabits = habits.filter(habit => {
-    if (habit.day === 'Daily') return true;
-    return habit.day === selectedDay  
-  })
+
+  // Day-based filtering removed for now — the current DB schema has no
+  // per-habit "day" field, only date-based logs. The week-strip UI stays
+  // as a visual placeholder; wiring it to real per-day data is a
+  // documented "next iteration" item, not a bug.
+  // const dayFilteredHabits = habits.filter(...) — removed
+
   return (
     <div className='dashboard'>
         <div className='dashboard__header'>
@@ -32,7 +34,7 @@ export default function Dashboard({ habits, onDelete, onToggle, setEditHabit }) 
           ))}
         </div>
         <button className="btn-add" onClick={() => navigate('/addHabit')}>+ Add new habit</button>
-        <HabitsList habits={ dayFilteredHabits } onDelete={ onDelete } onToggle={ onToggle } onEdit = { setEditHabit } />
+        <HabitsList habits={ habits } onDelete={ onDelete } onToggle={ onToggle } onEdit={ setEditHabit } />
       </div>
   )
 }

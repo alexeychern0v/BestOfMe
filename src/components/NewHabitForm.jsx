@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 
-export default function NewHabitForm ({ habits, setHabits, editHabit }) {
+export default function NewHabitForm({ onAdd, onUpdate, editHabit }) {
   const navigate = useNavigate()
-  
   const [habitForm, setHabitForm] = useState(
-    editHabit || { name: '', category: '', difficulty: 1, day: ''}
+    editHabit || { name: '', category: '', difficulty: 1, day: '' }
   )
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     if (editHabit) {
@@ -14,69 +15,65 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
     }
   }, [editHabit])
 
-  function handleHabitChange (event) {
+  function handleHabitChange(event) {
     const { name, value } = event.target
-    setHabitForm({...habitForm, [name]: value})
+    setHabitForm({ ...habitForm, [name]: value })
   }
 
+  async function handleHabitSubmit() {
+    // "day" is UI-only for now — backend schema doesn't store it yet,
+    // so it's no longer part of required validation
+    if (!habitForm.name.trim() || !habitForm.category) {
+      setError('Fill in name and category')
+      return
+    }
 
-  function handleHabitSubmit() {
-    if (!habitForm.name.trim() || !habitForm.category || !habitForm.day) {
-      console.log("Error: fill in all fields!")
-      return;
+    setError('')
+    setIsSubmitting(true)
+
+    try {
+      if (editHabit) {
+        await onUpdate(editHabit.id, habitForm)
+      } else {
+        await onAdd(habitForm)
+      }
+      navigate('/')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setIsSubmitting(false)
     }
-    if (editHabit) {
-      setHabits(habits.map(habit=> habit.id === editHabit.id ? { ...habitForm, id: habit.id } : habit))
-    } else {
-      setHabits([
-        ...habits, { ...habitForm,
-        status: 'Not done yet :(',
-        id: crypto.randomUUID()
-      } ])
-    }
-    
-    setHabitForm({name: '', category: '', difficulty: 1})
-    navigate('/')
   }
 
   return (
-    <div className = "form-page">
+    <div className="form-page">
       <h2>{editHabit ? 'Edit habit' : 'New habit'}</h2>
-      
-      <div className = "form-group">
-        <label className = "form-label">Name</label>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <div className="form-group">
+        <label className="form-label">Name</label>
         <input
-          className = "form-input" 
-          name = "name"
-          placeholder = 'Enter new habit'
-          value = { habitForm.name }
-          onChange = { handleHabitChange }
+          className="form-input"
+          name="name"
+          placeholder="Enter new habit"
+          value={habitForm.name}
+          onChange={handleHabitChange}
         />
       </div>
 
-      <div className = "form-group">
-        <label className = "form-label">Category</label>
-        <select
-          className = "form-select"
-          name = "category"
-          value = {habitForm.category}
-          onChange={handleHabitChange}
-        >
+      <div className="form-group">
+        <label className="form-label">Category</label>
+        <select className="form-select" name="category" value={habitForm.category} onChange={handleHabitChange}>
           <option value="">Choose category</option>
           <option value="Health">Health</option>
           <option value="Work">Work</option>
           <option value="Sport">Sport</option>
         </select>
       </div>
-      
+
       <div className="form-group">
         <label className="form-label">Difficulty</label>
-        <select
-          className="form-select"
-          name="difficulty"
-          value={habitForm.difficulty} 
-          onChange={handleHabitChange}
-        >
+        <select className="form-select" name="difficulty" value={habitForm.difficulty} onChange={handleHabitChange}>
           <option value={1}>1⭐ - easy</option>
           <option value={2}>2⭐⭐ - medium</option>
           <option value={3}>3⭐⭐⭐ - difficult</option>
@@ -84,13 +81,8 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
       </div>
 
       <div className="form-group">
-        <label className = "form-label">Frequency</label>
-        <select
-          className="form-select"
-          name="day"
-          value={habitForm.day} 
-          onChange={handleHabitChange}
-        >
+        <label className="form-label">Frequency (visual only for now)</label>
+        <select className="form-select" name="day" value={habitForm.day} onChange={handleHabitChange}>
           <option value="">Choose frequency</option>
           <option value="Daily">Daily</option>
           <option value="Monday">Monday</option>
@@ -102,8 +94,8 @@ export default function NewHabitForm ({ habits, setHabits, editHabit }) {
           <option value="Sunday">Sunday</option>
         </select>
 
-        <button className="btn-submit" onClick={handleHabitSubmit}>
-          {editHabit ? 'Save changes' : 'Add habit'}
+        <button className="btn-submit" onClick={handleHabitSubmit} disabled={isSubmitting}>
+          {isSubmitting ? 'Saving...' : editHabit ? 'Save changes' : 'Add habit'}
         </button>
       </div>
     </div>
