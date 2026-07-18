@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import Onboarding from './pages/Onboarding';
 import HabitDetail from './pages/HabitDetail';
 
+
 function AppRoutes() {
   const [habits, setHabits] = useState([])
   const [editHabit, setEditHabit] = useState(null)
