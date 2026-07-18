@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function RegisterForm() {
@@ -27,38 +27,46 @@ export default function RegisterForm() {
   };
 
   return (
-    <div>
-      <h2>Create account</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>One step closer to your better life</h2>
+        {error && <p className="auth-error">{error}</p>}
 
-      {/* No <form> tag needed here since we handle everything manually,
-          but using it is fine too - just make sure to preventDefault */}
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <form className="form-page" style={{ padding: 0 }} onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label" htmlFor="email">Email</label>
+            <input
+              id="email"
+              className="form-input"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label" htmlFor="password">Password</label>
+            <input
+              id="password"
+              className="form-input"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+            />
+          </div>
+
+          <button className="btn-submit" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Loading...' : "Create account"}
+          </button>
+        </form>
+
+        <p className="auth-switch">
+          Already with us? <Link to="/login">Login</Link>
+        </p>
       </div>
-
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          minLength={6}
-        />
-      </div>
-
-      <button onClick={handleSubmit} disabled={isSubmitting}>
-        {isSubmitting ? 'Creating account...' : 'Register'}
-      </button>
     </div>
   );
 }
