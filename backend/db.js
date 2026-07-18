@@ -13,6 +13,7 @@ pg.types.setTypeParser(1082, (val) => val); // 1082 = OID for the DATE type
 // Create a pool of connections using the DATABASE_URL from .env
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   max: 10, // maximum number of simultaneous connections in the pool
 });
 
