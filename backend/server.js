@@ -13,8 +13,10 @@ import { rateLimitLogin } from './middleware/rateLimiter.js';
 const app = express();
 
 // Enable CORS for all routes: without this, browser blocks requests from React app
-app.use(cors());
-
+app.use(cors({
+    origin: 'https://best-of-me.vercel.app',
+    credentials: true
+}));
 // Parse incoming JSON request bodies into req.body (needed for POST/PUT requests)
 app.use(express.json());
 
@@ -23,7 +25,7 @@ app.use('/api/habits', habitLogsRouter);
 
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok' });
+    res.json({ status: 'ok' });
 });
 
 // POST /api/register - creates a new user account
