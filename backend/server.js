@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import { verifyToken } from './middleware/auth.js';
 import habitsRouter from './routes/habits.js';
 import habitLogsRouter from './routes/habitLogs.js';
+import { rateLimitLogin } from './middleware/rateLimiter.js';
 
 
 const app = express();
@@ -59,7 +60,7 @@ app.post('/api/register', async(req, res) => {
 });
 
 // POST /api/login - authenticates user and returns a JWT token
-app.post('/api/login', async(req, res) => {
+app.post('/api/login', rateLimitLogin, async(req, res) => {
     const { email, password } = req.body
     
     try {
@@ -96,13 +97,6 @@ app.post('/api/login', async(req, res) => {
     }
 });
 
-// Test middleware protection
-app.get('/api/test', verifyToken, (req, res) => {
-    res.json({
-        message: 'Access granted!',
-        userId: req.userId
-    });
-});
 
 // Get the port from .env, or default to 5001 if not set
 const PORT = process.env.PORT || 5001;
