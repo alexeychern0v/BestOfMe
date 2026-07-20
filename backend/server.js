@@ -99,6 +99,13 @@ app.post('/api/login', rateLimitLogin, async(req, res) => {
     }
 });
 
+app.get('/api/test', verifyToken, (req, res) => {
+    res.json({
+        message: 'Access granted!',
+        userId: req.userId
+    });
+});
+
 
 // Get the port from .env, or default to 5001 if not set
 const PORT = process.env.PORT || 5001;
