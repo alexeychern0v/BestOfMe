@@ -18,10 +18,11 @@ function AppRoutes() {
   const [editHabit, setEditHabit] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, token } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {
+      setHabits([]);
       setIsLoading(false);
       return;
     }
@@ -46,7 +47,7 @@ function AppRoutes() {
             status: todayLog?.completed ? 'Done :)' : 'Not done yet :(',
             };
           })
-);
+        );
 
         setHabits(habitsWithStatus);
       } catch (err) {
@@ -57,7 +58,7 @@ function AppRoutes() {
     }
 
     loadHabits();
-  }, [isAuthenticated]);
+  }, [token]);
 
 
   async function toggleHabit(id) {
